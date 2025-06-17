@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',  # Custom app for core functionality
+    'ckeditor',  # Editor de texto enriquecido para páginas
+    'core',  # la aplicación principal que sirve para configuración y utilidades generales
     'pages.apps.PagesConfig',  # Custom app for pages
 ]
 
