@@ -28,6 +28,8 @@ class PageUpdateView(UpdateView):
         return reverse_lazy("pages:update", args=[self.object.id]) + '?ok'
 
 
-
+class PageDeleteView(DeleteView):
+    model = Page
+    success_url = reverse_lazy("pages:pages")
        
     
