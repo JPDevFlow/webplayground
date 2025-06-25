@@ -22,7 +22,7 @@ class PageCreateView(CreateView):
 
 class PageUpdateView(UpdateView):
     model = Page
-    fields = ["title", "content", "order"]
+    form_class = PageForm
     template_name_suffix = "_update_form"
     def get_success_url(self):
         return reverse_lazy("pages:update", args=[self.object.id]) + '?ok'
