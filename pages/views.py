@@ -3,7 +3,15 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Page
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 from .forms import PageForm
+
+class StaffRequiredMixin(object):
+    """Este mixion requira que el usuario sea miembro del staff para acceder a la vista."""
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect(reverse_lazy('admin:login'))
+        return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 # Create your views here.
 class PageListView(ListView):
@@ -14,13 +22,15 @@ class PageDetailView(DetailView):
     model = Page
 
 
-class PageCreateView(CreateView):
+class PageCreateView(StaffRequiredMixin, CreateView):
     model = Page
     form_class = PageForm
     success_url = reverse_lazy("pages:pages")
 
+    
 
-class PageUpdateView(UpdateView):
+
+class PageUpdateView(StaffRequiredMixin, UpdateView):
     model = Page
     form_class = PageForm
     template_name_suffix = "_update_form"
@@ -28,7 +38,7 @@ class PageUpdateView(UpdateView):
         return reverse_lazy("pages:update", args=[self.object.id]) + '?ok'
 
 
-class PageDeleteView(DeleteView):
+class PageDeleteView(StaffRequiredMixin, DeleteView):
     model = Page
     success_url = reverse_lazy("pages:pages")
        
