@@ -124,3 +124,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#auths redirects
+LOGIN_REDIRECT_URL = 'pages:pages'  # Redirecciona a la lista de páginas después del login
