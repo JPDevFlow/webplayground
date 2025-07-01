@@ -12,7 +12,6 @@ class StaffRequiredMixin(object):
     """Se agrega el decorador y se le pasa el parametro staff_member_required para la confirmacion de que el usuario es un miembro del staff y evitar que cualquiera haga modificaciones o cree paginas existentes."""
     @method_decorator(staff_member_required)
     def dispatch(self, request, *args, **kwargs):
-        
         return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 # Create your views here.
@@ -23,24 +22,24 @@ class PageListView(ListView):
 class PageDetailView(DetailView):
     model = Page
 
-@method_decorator(staff_member_required)
-class PageCreateView(CreateView, name='dispatch'):
+@method_decorator(staff_member_required, name='dispatch')
+class PageCreateView(CreateView):
     model = Page
     form_class = PageForm
     success_url = reverse_lazy("pages:pages")
 
     
 
-@method_decorator(staff_member_required)
-class PageUpdateView(UpdateView, name='dispatch'):
+@method_decorator(staff_member_required, name='dispatch')
+class PageUpdateView(UpdateView):
     model = Page
     form_class = PageForm
     template_name_suffix = "_update_form"
     def get_success_url(self):
         return reverse_lazy("pages:update", args=[self.object.id]) + '?ok'
 
-@method_decorator(staff_member_required)
-class PageDeleteView(DeleteView, name='dispatch'):
+@method_decorator(staff_member_required, name='dispatch')
+class PageDeleteView(DeleteView):
     model = Page
     success_url = reverse_lazy("pages:pages")
        
