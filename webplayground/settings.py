@@ -128,3 +128,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #auths redirects
 LOGIN_REDIRECT_URL = 'pages:pages'  # Redirecciona a la lista de páginas después del login
+LOGOUT_REDIRECT_URL = 'home'  # Redirecciona a la página de inicio después del logout
