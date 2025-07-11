@@ -1,2 +1,7 @@
 En este proyecto se trabajara con el concepto de CBV= CLASS BASED VIEWS
 o en español vistas basadas en clases
+
+RELACIONES ENTRE MODELOS
+1-OneToOneField(1:1) = 1 usuario 1 perfil
+2-ForeignKeyField(1:N) = 1 autor N entradas
+3-ManyToManyField(N:M) = N entradas M categorias
