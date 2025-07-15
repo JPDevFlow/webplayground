@@ -12,6 +12,16 @@
     <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
+    <style>
+      .navbar-nav .nav-item form .nav-link {
+        color: #fff !important;
+      }
+      .navbar-nav .nav-item form .nav-link:focus,
+      .navbar-nav .nav-item form .nav-link:hover {
+        color: #ccc !important;
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
     <body>
@@ -43,10 +53,10 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'profile' %}">Perfil</a>
                 </li>
-                <li class="nav-item">
-                  <form method="post" action="{% url 'logout' %}">
+                <li class="nav-item d-flex align-items-center">
+                  <form method="post" action="{% url 'logout' %}" style="display:inline;">
                     {% csrf_token %}
-                    <button type="submit" class="nav-link btn btn-link" style="padding: 0; border: none; background: none;">Salir</button>
+                    <button type="submit" class="nav-link p-0 m-0" style="border:none; background:none; color:inherit; line-height:inherit; cursor:pointer;">Salir</button>
                   </form>
                 </li>
               {% endif %}
