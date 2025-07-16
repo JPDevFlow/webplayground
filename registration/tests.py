@@ -1,10 +1,16 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import CreateView
-from django.urls import reverse_lazy
+from django.test import TestCase
+from .models import Profile
+from django.contrib.auth.models import User
 
 # Create your tests here.
 
-class SignUpView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'registration/signup.html'
+class ProfileTestCase(TestCase):
+    def setUp(self):
+        User.objects.create_user('test', 'test@test.com', 'test1234')
+
+    def test_profile_exists(self):
+        exists = Profile.objects.filter(user__username='test').exists()
+        self.assertEqual(exists, True)
+
+
+       
