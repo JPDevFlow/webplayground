@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',  # Editor de texto enriquecido para páginas
     'core',  # la aplicación principal que sirve para configuración y utilidades generales
+    'messenger',  # Aplicación para manejar mensajes flash
     'pages.apps.PagesConfig',  # Custom app for pages
     'profiles',  # App para los perfiles de usuario
 ]
