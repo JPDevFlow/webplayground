@@ -23,3 +23,6 @@ class ThreadDetail(DetailView):
             raise Http404("No tienes los permisos necesarios para ver este hilo.")
         return obj
     
+
+def add_message(request, pk):
+    pass
