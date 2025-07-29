@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from .models import Thread
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import Http404
+from django.http import Http404, JsonResponse
 # Create your views here.
 
 @method_decorator(login_required, name='dispatch')
@@ -25,4 +25,5 @@ class ThreadDetail(DetailView):
     
 
 def add_message(request, pk):
-    pass
+    json_response ={'created':False}
+    return JsonResponse(json_response)
