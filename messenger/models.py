@@ -20,9 +20,15 @@ class ThreadManager(models.Manager):
         if len(queryset)>0:
             return queryset[0]
         return None
+    def find_or_create(self, user1, user2):
+        thread = self.find(user1, user2)
+        if thread is None:
+            thread =Thread.objects.create()
+            thread.users.add(user1, user2)
+        return thread
 
 class Thread(models.Model):
-    user = models.ManyToManyField(User, related_name='threads')
+    users = models.ManyToManyField(User, related_name='threads')
     messages = models.ManyToManyField(Message)
 
     objects = ThreadManager()
@@ -37,7 +43,7 @@ def message_changed(sender, **kwargs):
     if action == 'pre_add':
         for msg_pk in pk_set and pk_set:
             msg = Message.objects.get(pk=msg_pk)
-            if msg.user  not in instance.user.all():
+            if msg.user  not in instance.users.all():
                 print(f'upps!, {msg.user} no forma parte del hilo')
                 false_pk_set.add(msg_pk)
     pk_set.difference_update(false_pk_set)
