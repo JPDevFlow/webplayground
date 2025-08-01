@@ -6,7 +6,7 @@ from django.db.models.signals import m2m_changed
 
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    contenido = models.TextField()
+    content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
 
