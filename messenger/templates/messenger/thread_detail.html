@@ -32,7 +32,14 @@
                       <!-- Mostramos la información del miembro --> 
                       <div>
                         <a href="{% url 'messenger:detail' thread.pk %}">{{user}}</a><br>
-                        <small><i>Hace {{ message.created | timesince }}</i></small>
+                        <small><i>
+                          Hace 
+                          {% if thread.messages.last %}
+                            {{ thread.messages.last.created|timesince }}
+                          {% else %}
+                            sin mensajes
+                          {% endif %}
+                        </i></small>
                       </div>
                     {% endif %}
                   {% endfor %}
@@ -50,10 +57,10 @@
             {% endfor %}
             <!-- Mostramos los mensajes en una capa que tiene un overflow vertical de 300 píxeles -->
             <div class="thread" id="thread">
-              {% for message in object.messages.all %}
+              {% for message in object.messages.all|dictsort:"created" %}
                 <!-- Dependiendo del usuario asignamos una clase con un color de fondo u otro en el mensaje -->
                 <div {% if request.user == message.user %}class="mine mb-3"{% else %}class="other mb-3"{% endif %}>
-                  <small><i>Hace {{thread.messages.last.created|timesince}}</i></small><br>
+                  <small><i>Hace {{message.created|timesince}}</i></small><br>
                   {{message.content}}
                 </div>
               {% endfor %}
