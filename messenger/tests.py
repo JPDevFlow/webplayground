@@ -14,3 +14,12 @@ class ThreadTestCase(TestCase):
     def test_add_user_to_thread(self):
         self.thread.users.add(self.user1, self.user2)
         self.assertEqual(len(self.thread.users.all()), 2)
+
+    def test_filter_thread_by_users(self):
+        self.thread.users.add(self.user1, self.user2)
+        threads = Thread.objects.filter(users=self.user1).filter(users=self.user2)
+        self.assertEqual(self.thread, threads[0])
+
+    def test_non_existent_thread(self):
+        threads = Thread.objects.filter(users=self.user1).filter(users=self.user2)
+        self.assertEqual(len(threads), 0)
