@@ -23,3 +23,10 @@ class ThreadTestCase(TestCase):
     def test_non_existent_thread(self):
         threads = Thread.objects.filter(users=self.user1).filter(users=self.user2)
         self.assertEqual(len(threads), 0)
+
+    def test_add_message_to_thread(self):
+        self.thread.users.add(self.user1, self.user2)
+        mesasge1 = Message.objects.create(user=self.user1, content="Muy buenas")
+        mesasge2 = Message.objects.create(user=self.user2, content="Hola, ¿qué tal?")
+        self.thread.messages.add(mesasge1, mesasge2)
+        self.assertEqual(len(self.thread.messages.all()), 2)
