@@ -8,6 +8,7 @@ class ThreadTestCase(TestCase):
     def setUp(self):
         self.user1 = User.objects.create_user('user1', None,'test1234')
         self.user2 = User.objects.create_user('user2', None,'test1234')
+        self.user3 = User.objects.create_user('user3', None,'test1234')
         
         self.thread = Thread.objects.create()
 
@@ -29,4 +30,12 @@ class ThreadTestCase(TestCase):
         mesasge1 = Message.objects.create(user=self.user1, content="Muy buenas")
         mesasge2 = Message.objects.create(user=self.user2, content="Hola, ¿qué tal?")
         self.thread.messages.add(mesasge1, mesasge2)
+        self.assertEqual(len(self.thread.messages.all()), 2)
+
+    def test_add_message_from_user_not_in_thread(self):
+        self.thread.users.add(self.user1, self.user2)
+        mesasge1 = Message.objects.create(user=self.user1, content="Muy buenas")
+        mesasge2 = Message.objects.create(user=self.user2, content="Hola, ¿qué tal?")
+        mesasge3 = Message.objects.create(user=self.user3, content="Hola, soy un espía")
+        self.thread.messages.add(mesasge1, mesasge2, mesasge3)
         self.assertEqual(len(self.thread.messages.all()), 2)
